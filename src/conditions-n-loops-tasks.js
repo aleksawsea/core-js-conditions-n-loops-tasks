@@ -409,20 +409,40 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
-  // const result = arr;
-  // const len = result.length;
-  // for (let i = 0; i < len - 1; i += 1) {
-  //   for (let j = 0; j < len - 1 - i; j += 1) {
-  //     if (result[j] > result[j + 1]) {
-  //       const el = result[j];
-  //       result[j] = result[j + 1];
-  //       result[j + 1] = el;
-  //     }
-  //   }
-  // }
-  // return result;
+function sortByAsc(arr) {
+  let result = arr;
+  if (result.length === 0) {
+    result = arr;
+  }
+  const stackLeft = [0];
+  const stackRight = [result.length - 1];
+  while (stackLeft.length > 0) {
+    const left = stackLeft[stackLeft.length - 1];
+    const right = stackRight[stackRight.length - 1];
+    stackLeft.length -= 1;
+    stackRight.length -= 1;
+    if (left < right) {
+      const pivot = result[right];
+      let i = left - 1;
+      for (let j = left; j < right; j += 1) {
+        if (result[j] < pivot) {
+          i += 1;
+          const el = result[i];
+          result[i] = result[j];
+          result[j] = el;
+        }
+      }
+      const el = result[i + 1];
+      result[i + 1] = result[right];
+      result[right] = el;
+      const pivotIndex = i + 1;
+      stackLeft[stackLeft.length] = left;
+      stackRight[stackRight.length] = pivotIndex - 1;
+      stackLeft[stackLeft.length] = pivotIndex + 1;
+      stackRight[stackRight.length] = right;
+    }
+  }
+  return result;
 }
 
 /**

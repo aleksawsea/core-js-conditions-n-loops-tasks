@@ -310,8 +310,54 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      matrix[i][j] = 0;
+    }
+  }
+  let leftCol = 0;
+  let rightCol = size - 1;
+  let topRow = 0;
+  let bottomRow = size - 1;
+  let elem = 1;
+  while (topRow <= bottomRow && leftCol <= rightCol) {
+    for (let col = leftCol; col < size; col += 1) {
+      if (matrix[topRow][col] === 0) {
+        matrix[topRow][col] = elem;
+        elem += 1;
+      }
+    }
+    topRow += 1;
+    for (let row = topRow; row < size; row += 1) {
+      if (matrix[row][rightCol] === 0) {
+        matrix[row][rightCol] = elem;
+        elem += 1;
+      }
+    }
+    rightCol -= 1;
+    if (topRow <= bottomRow) {
+      for (let col = rightCol; col >= leftCol; col -= 1) {
+        if (matrix[bottomRow][col] === 0) {
+          matrix[bottomRow][col] = elem;
+          elem += 1;
+        }
+      }
+      bottomRow -= 1;
+    }
+    if (leftCol <= rightCol) {
+      for (let row = bottomRow; row >= topRow; row -= 1) {
+        if (matrix[row][leftCol] === 0) {
+          matrix[row][leftCol] = elem;
+          elem += 1;
+        }
+      }
+      leftCol += 1;
+    }
+  }
+  return matrix;
 }
 
 /**
@@ -365,6 +411,18 @@ function rotateMatrix(matrix) {
  */
 function sortByAsc(/* arr */) {
   throw new Error('Not implemented');
+  // const result = arr;
+  // const len = result.length;
+  // for (let i = 0; i < len - 1; i += 1) {
+  //   for (let j = 0; j < len - 1 - i; j += 1) {
+  //     if (result[j] > result[j + 1]) {
+  //       const el = result[j];
+  //       result[j] = result[j + 1];
+  //       result[j + 1] = el;
+  //     }
+  //   }
+  // }
+  // return result;
 }
 
 /**
@@ -386,6 +444,17 @@ function sortByAsc(/* arr */) {
  */
 function shuffleChar(/* str, iterations */) {
   throw new Error('Not implemented');
+  //   let tempStr = str;
+  //   let result = str;
+  //   for (let i = 0; i < iterations; i += 1) {
+  //     for (let j = 1; j < str.length; j += 2) {
+  //       const char = tempStr.slice(j, j + 1);
+  //       result = result.replace(tempStr[j], '');
+  //       result = result.concat(char);
+  //     }
+  //     tempStr = result;
+  //   }
+  //   return result;
 }
 
 /**
